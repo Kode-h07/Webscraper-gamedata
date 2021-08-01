@@ -28,6 +28,6 @@ def extract_player():
         players.append(player)
     return players
 
-print(extract_player())
+
 
 
