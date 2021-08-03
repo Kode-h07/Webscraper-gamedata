@@ -1,9 +1,9 @@
 import csv
 
-def save_to_file(players):
-    file = open('players.csv', mode='w', encoding='utf-8')
+def save_to_file(articles):
+    file = open('articles.csv', mode='w', encoding='utf-8', newline='')
     writer = csv.writer(file)
-    writer.writerow(['name', 'overall', 'position', 'link'])
-    for player in players:
-        writer.writerow(player.values())
+    writer.writerow(['name', 'date', 'link'])
+    for article in articles:
+        writer.writerow(article.values())
     return

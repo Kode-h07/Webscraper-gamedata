@@ -1,16 +1,17 @@
 from bs4 import BeautifulSoup
 import requests
 
-def extract_data(html):
-    name = html.find('div', {'class': 'pcdisplay-name'}).text
-    overall = html.find('div', {'class': 'pcdisplay-rat'}).text
-    position = html.find('div', {'class': 'pcdisplay-pos'}).text
-    for a in html.find_all('a', href=True):
-        link = 'https://www.futbin.com/'+a['href']
+
+def extract_news(html):
+    title = html.find('p', {'class': 'teaser__subdeck'}).text
+    title = str(title)
+    title = title[4: -2]
+    date = html.find('div', {'class': 'search-date'}).text
+    for a in html.find_all('a', {'class':'teaser-anchor teaser-anchor--search'}, href=True):
+        link = a['href']
     return {
-        'name': name,
-        'overall': overall,
-        'position': position,
+        'title': title,
+        'date': date,
         'link': link
     }
 
@@ -18,15 +19,15 @@ def extract_data(html):
 
 
 
-def extract_player():
-    players = []
-    result = requests.get("https://www.futbin.com/popular")
+def extract_articles():
+    news = []
+    result = requests.get("https://talksport.com/?s=manchester%20united")
     soup = BeautifulSoup(result.text, 'html.parser')
-    results = soup.find_all('li', {"class": 'popular-box'})
+    results = soup.find_all('div', {"class": 'sun-row teaser'})
     for result in results:
-        player = extract_data(result)
-        players.append(player)
-    return players
+        article = extract_news(result)
+        news.append(article)
+    return news
 
 
 
