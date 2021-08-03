@@ -27,7 +27,7 @@ def report():
                            Search_by=word,
                            process='loading',
                            result_number=len(articles),
-                           articles = articles
+                           articles=articles
                            )
 
 @app.route("/export")
