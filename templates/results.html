@@ -1,12 +1,31 @@
 <!DOCTYPE html>
+<!--Remember! that all {{}} are readable cuz of Flask!-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        section {
+        display:grid;
+        gap:20px;
+        grid-template-columns: repeat(3,1fr);
+        }
+    </style>
 </head>
 <body>
     <h1>Search Results</h1>
-    <h3>You are looking for {{Search_by}}</h3>
-    <h2>{{process}}</h2>
+    <h3>Found {{result_number}} results for: {{Search_by}}</h3>
+    <a href="/export?word={{Search_by}}">Export to CSV</a>
+    <section>
+        <h4>title</h4>
+        <h4>date</h4>
+        <h4>link</h4>
+        {% for article in articles %}
+            <span>{{article.title}}</span>
+            <span>{{article.date}}</span>
+            <a href="{{article.link}}" target="_blank">Link to article</a>
+        {% endfor %}
+
+    </section>
 </body>
 </html>
